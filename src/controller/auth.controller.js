@@ -2,8 +2,7 @@ import { db } from "../config/firebase.js";
 import { sendOTP } from "../utils/mailer.js";
 import admin from "firebase-admin";
 
-const generateOtp = () =>
-  Math.floor(1000 + Math.random() * 9000).toString();
+const generateOtp = () => Math.floor(1000 + Math.random() * 9000).toString();
 
 export const sendOtp = async (req, res) => {
   try {
@@ -82,14 +81,16 @@ export const resetPassword = async (req, res) => {
       password: newPassword,
     });
 
-    return res.json({ message: "Password updated successfully!" });
-
+    return res.json({
+      success: true,
+      message: "Password updated successfully!",
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
+      success: false,
       message: "Failed to reset password",
       error: error.message,
     });
   }
 };
-
